@@ -8,16 +8,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../Redux/contactsSlice';
 
 export default function App() {
-  const localContacts = localStorage.getItem('contacts');
-  const parsedContacts = JSON.parse(localContacts);
-  const [contacts, setContacts] = useState(() => []);
-  const [filter, setFilter] = useState(() => '');
+  // const localContacts = localStorage.getItem('contacts');
+  // const parsedContacts = JSON.parse(localContacts);
+  // const [contacts, setContacts] = useState(() => []);
+  // const [filter, setFilter] = useState(() => '');
   const dispatch = useDispatch();
+  const allContacts = useSelector(state => state.contacts);
+  // console.log(allContacts);
 
   const formSubmitHandler = data => {
     const { id, name, number } = data;
 
-    contacts.find(contact => contact.name === name)
+    allContacts.find(contact => contact.name === name)
       ? alert(`${name} is already in contacts`)
       : dispatch(
           addContact({
@@ -38,36 +40,40 @@ export default function App() {
     //      ]);
   };
 
-  const filterForContacts = event => {
-    const { value } = event.currentTarget;
-    setFilter(value);
-  };
+  // const filterForContacts = event => {
+  //   const { value } = event.currentTarget;
+  //   setFilter(value);
+  // };
 
-  const filteredContacts = () => {
-    const normalizedFilter = filter.toLowerCase();
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
-  };
+  // const filteredContacts = () => {
+  //   const normalizedFilter = filter.toLowerCase();
+  //   return allContacts.filter(contact =>
+  //     contact.name.toLowerCase().includes(normalizedFilter)
+  //   );
+  // };
 
-  const deleteContact = toDeleteId => {
-    setContacts(contacts.filter(contact => contact.id !== toDeleteId));
-  };
+  // const deleteContact = toDeleteId => {
+  //   dispatch(removeContact());
+  // };
 
-  const localContactsCheck = () => {
-    if (parsedContacts !== null) {
-      setContacts(parsedContacts);
-    }
-  };
+  // const deleteContact = toDeleteId => {
+  //   setContacts(contacts.filter(contact => contact.id !== toDeleteId));
+  // };
+
+  // const localContactsCheck = () => {
+  //   if (parsedContacts !== null) {
+  //     setContacts(parsedContacts);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   localContactsCheck();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   useEffect(() => {
-    localContactsCheck();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+    localStorage.setItem('contacts', JSON.stringify(allContacts));
+  }, [allContacts]);
 
   return (
     <div
@@ -84,10 +90,10 @@ export default function App() {
         <Form onSubmit={formSubmitHandler} />
       </SectionForm>
       <SectionContacts title="Contacts">
-        <Filter value={filter} onChange={filterForContacts} />
+        <Filter />
         <ContactList
-          contacts={filteredContacts()}
-          onDeleteContact={deleteContact}
+        // contacts={filteredContacts()}
+        // onDeleteContact={deleteContact}
         />
       </SectionContacts>
     </div>
