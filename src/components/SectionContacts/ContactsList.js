@@ -1,5 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import css from './SectionContacts.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeContact } from '../../Redux/contactsSlice';
@@ -8,7 +7,6 @@ const ContactsList = () => {
   const dispatch = useDispatch();
   const allContacts = useSelector(state => state.contacts);
   const inputValue = useSelector(state => state.filter);
-
   const filteredContacts = allContacts.filter(contact =>
     contact.name.toLowerCase().includes(inputValue.toLowerCase())
   );
@@ -43,8 +41,3 @@ const ContactsList = () => {
 };
 
 export default ContactsList;
-
-// ContactsList.propTypes = {
-//   // contacts: PropTypes.array.isRequired,
-//   // onDeleteContact: PropTypes.func.isRequired,
-// };

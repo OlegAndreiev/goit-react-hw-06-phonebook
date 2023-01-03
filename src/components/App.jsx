@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Form from './SectionForm/Form';
 import SectionForm from './SectionForm/SectionForm';
 import SectionContacts from './SectionContacts/SectionContacts';
@@ -8,13 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../Redux/contactsSlice';
 
 export default function App() {
-  // const localContacts = localStorage.getItem('contacts');
-  // const parsedContacts = JSON.parse(localContacts);
-  // const [contacts, setContacts] = useState(() => []);
-  // const [filter, setFilter] = useState(() => '');
   const dispatch = useDispatch();
   const allContacts = useSelector(state => state.contacts);
-  // console.log(allContacts);
 
   const formSubmitHandler = data => {
     const { id, name, number } = data;
@@ -28,52 +23,7 @@ export default function App() {
             number: number,
           })
         );
-    //  contacts.find(contact => contact.name === name)
-    //    ? alert(`${name} is already in contacts`)
-    //    : setContacts(prevContacts => [
-    //        ...prevContacts,
-    //        {
-    //          id: id,
-    //          name: name,
-    //          number: number,
-    //        },
-    //      ]);
   };
-
-  // const filterForContacts = event => {
-  //   const { value } = event.currentTarget;
-  //   setFilter(value);
-  // };
-
-  // const filteredContacts = () => {
-  //   const normalizedFilter = filter.toLowerCase();
-  //   return allContacts.filter(contact =>
-  //     contact.name.toLowerCase().includes(normalizedFilter)
-  //   );
-  // };
-
-  // const deleteContact = toDeleteId => {
-  //   dispatch(removeContact());
-  // };
-
-  // const deleteContact = toDeleteId => {
-  //   setContacts(contacts.filter(contact => contact.id !== toDeleteId));
-  // };
-
-  // const localContactsCheck = () => {
-  //   if (parsedContacts !== null) {
-  //     setContacts(parsedContacts);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   localContactsCheck();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(allContacts));
-  }, [allContacts]);
 
   return (
     <div
@@ -91,10 +41,7 @@ export default function App() {
       </SectionForm>
       <SectionContacts title="Contacts">
         <Filter />
-        <ContactList
-        // contacts={filteredContacts()}
-        // onDeleteContact={deleteContact}
-        />
+        <ContactList />
       </SectionContacts>
     </div>
   );
